@@ -5,6 +5,7 @@ assets/IMG_6840.mov
 @eaDir
 Thumbs.db
 .DS_Store
+dist/
 *.log
 *.tmp
 *.tmp.*
