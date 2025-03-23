@@ -10,7 +10,7 @@ const hasCerts = fs.existsSync(path.join(certPath, 'cert.pem')) &&
                 fs.existsSync(path.join(certPath, 'key.pem'));
 
 export default defineConfig({
-  base: '/',
+  base: '/snap-flex/',
   server: {
     // Enable HTTPS if certificates exist
     https: hasCerts ? {
@@ -23,24 +23,17 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      workbox: {
+        cacheId: 'snap-flex-v1.01',
+      },
       manifest: {
         name: 'Snap-Flex',
         short_name: 'SnapFlex',
+        start_url: '/snap-flex/',
+        scope: '/snap-flex/',
         description: 'Knee Flexion Angle Measurement',
         theme_color: '#1a1a1a',
-        background_color: '#1a1a1a',
-        icons: [
-          {
-            src: '/icon-192x192.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: '/icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          }
-        ]
+        background_color: '#1a1a1a'
       }
     })
   ]
