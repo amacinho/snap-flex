@@ -42,8 +42,9 @@ function StartScreen({ onStart, status, tensorFlowStatus }: StartScreenProps) {
       <div className="app-description">
         <h2>Snap-Flex</h2>
         <p>
-          Measure your knee flexion angle using TensorFlow.js and MoveNet for pose detection. 
+          Measure your knee flexion angle using automatic pose detection. 
           100% private: No videos, images, or data are uploaded. Everything stays on your device.
+          Uses TensorFlow.js and MoveNet.
         </p>
       </div>
       <h1>Snap Flex</h1>
