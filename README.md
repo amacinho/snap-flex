@@ -2,10 +2,13 @@
 
 A knee flexion angle measurement application that uses TensorFlow.js and MoveNet for pose detection. All computations are done client-side in the browser. No data is sent to a server.
 
+
 The knee flexion angle is the angle formed between an imaginary straight line extending from your thigh bone (femur) and your shin bone (tibia) when you bend your knee. A fully straight (extended) knee has a flexion angle of 0 degrees and most people can comfortably bend their knee to about 135 to 140 degrees.
 
 
+
 # Usage
+
 
 1. Click the "Start Camera" button and wait for initialization to complete
 2. Put the camera approximately 1 meter away from you in a level position
@@ -13,6 +16,9 @@ The knee flexion angle is the angle formed between an imaginary straight line ex
 4. The application will detect your pose and calculate the knee flexion angle (not the knee angle that is etween the thigh and the calf, but )
 5. Use the knee selection controls to choose which knee to track (left, right, or auto)
 6. Optionally, click share on your browser and add to home screen to use the app as a standalone app on your mobile device.
+
+![App Screenshot](./assets/screenshot.png)
+
 
 # Development Setup
 
