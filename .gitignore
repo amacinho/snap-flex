@@ -1,0 +1,12 @@
+node_modules/
+certificates/cert.pem
+certificates/key.pem
+assets/IMG_6840.mov
+@eaDir
+Thumbs.db
+.DS_Store
+*.log
+*.tmp
+*.tmp.*
+*.tmp~
+*.tmp!
