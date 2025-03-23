@@ -1,23 +1,28 @@
 # Snap-Flex
 
-A knee flexion angle measurement application that uses TensorFlow.js and MoveNet for pose detection.
+A knee flexion angle measurement application that uses TensorFlow.js and MoveNet for pose detection. All computations are done client-side in the browser. No data is sent to a server.
 
-## Features
+The knee flexion angle is the angle formed between an imaginary straight line extending from your thigh bone (femur) and your shin bone (tibia) when you bend your knee. A fully straight (extended) knee has a flexion angle of 0 degrees and most people can comfortably bend their knee to about 135 to 140 degrees.
 
-- Real-time knee angle measurement
-- Support for both left and right knee tracking
-- Mobile-friendly interface
-- Works on both desktop and mobile browsers
 
-## Development Setup
+# Usage
 
-### Prerequisites
+1. Click the "Start Camera" button and wait for initialization to complete
+2. Put the camera approximately 1 meter away from you in a level position
+3. Position yourself in front of the camera horizontally on your back and facing the camera sideways so that your ankle, knee, and hip are visible on the screen
+4. The application will detect your pose and calculate the knee flexion angle (not the knee angle that is etween the thigh and the calf, but )
+5. Use the knee selection controls to choose which knee to track (left, right, or auto)
+6. Optionally, click share on your browser and add to home screen to use the app as a standalone app on your mobile device.
+
+# Development Setup
+
+## Prerequisites
 
 - Node.js (v14 or higher)
 - npm or yarn
 - OpenSSL (for generating SSL certificates)
 
-### Installation
+## Installation
 
 1. Clone the repository
 2. Install dependencies:
@@ -25,9 +30,9 @@ A knee flexion angle measurement application that uses TensorFlow.js and MoveNet
    npm install
    ```
 
-### Running the Application
+## Running the Application
 
-#### Standard Development Server
+### Standard Development Server
 
 ```
 npm run dev
@@ -35,7 +40,7 @@ npm run dev
 
 This will start the development server on http://localhost:5173 (or another port if 5173 is in use).
 
-#### HTTPS Development Server (Recommended for Mobile Testing)
+### HTTPS Development Server (Recommended for Mobile Testing)
 
 For mobile browser testing, especially for camera access, you need to run the server with HTTPS:
 
@@ -55,37 +60,11 @@ For mobile browser testing, especially for camera access, you need to run the se
 - Click "Advanced" and then "Proceed to localhost (unsafe)" in Chrome
 - Click "Accept the Risk and Continue" in Firefox
 
-For mobile testing, you may need to:
-1. Make sure your mobile device is on the same network as your development machine
-2. Access the application using your computer's local IP address (e.g., https://192.168.1.100:5173)
-3. Accept the security warning for the self-signed certificate
 
-### Building for Production
+## Building for Production
 
 ```
 npm run build
 ```
 
 This will create a production-ready build in the `dist` directory.
-
-## Usage
-
-1. Click the "Start Camera" button to begin
-2. Position yourself so that your knee is visible in the camera
-3. The application will detect your pose and calculate the knee angle
-4. Use the knee selection controls to choose which knee to track (left, right, or auto)
-
-## Troubleshooting
-
-### Camera Access Issues
-
-- Make sure you're using a secure context (HTTPS) for camera access, especially on mobile browsers
-- Grant camera permissions when prompted
-- Ensure no other application is using the camera
-- If using an external camera, make sure it's properly connected
-
-### Performance Issues
-
-- The application uses TensorFlow.js which can be resource-intensive
-- For better performance, use a device with a powerful CPU/GPU
-- Close other resource-intensive applications
