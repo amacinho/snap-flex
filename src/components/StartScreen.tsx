@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppStatus, TensorFlowStatus } from '../utils/constants';
+import screenshot from '../../assets/screenshot.png';
 
 // Update the props interface
 interface StartScreenProps {
@@ -33,6 +34,18 @@ function StartScreen({ onStart, status, tensorFlowStatus }: StartScreenProps) {
   
   return (
     <div className="start-screen">
+      <img
+        src={screenshot}
+        alt="App screenshot"
+        className="start-screen-image"
+      />
+      <div className="app-description">
+        <h2>Snap-Flex</h2>
+        <p>
+          Measure your knee flexion angle using TensorFlow.js and MoveNet for pose detection. 
+          100% private: No videos, images, or data are uploaded. Everything stays on your device.
+        </p>
+      </div>
       <h1>Snap Flex</h1>
       <button
         onClick={onStart}
