@@ -10,6 +10,7 @@ const hasCerts = fs.existsSync(path.join(certPath, 'cert.pem')) &&
                 fs.existsSync(path.join(certPath, 'key.pem'));
 
 export default defineConfig({
+  base: '/snap-flex/',
   server: {
     // Enable HTTPS if certificates exist
     https: hasCerts ? {

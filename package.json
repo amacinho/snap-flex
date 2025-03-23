@@ -9,7 +9,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "generate-certs": "node generate-certificates.js"
+    "generate-certs": "node generate-certificates.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -26,8 +28,10 @@
   "devDependencies": {
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "gh-pages": "^6.3.0",
     "typescript": "^5.8.2",
     "vite": "5.4.14",
     "vite-plugin-pwa": "^0.17.5"
-  }
+  },
+  "homepage": "https://amacinho.github.io/snap-flex"
 }
