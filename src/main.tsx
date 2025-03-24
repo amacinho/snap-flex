@@ -1,3 +1,16 @@
+console.log(navigator);
+if ('serviceWorker' in navigator) {
+  console.log('SW: serviceWorker in navigator');
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register(`/snap-flex/sw.js`, {
+      scope: '/snap-flex/'
+    })
+      .then(reg => console.log('SW registered'))
+      .catch(err => console.error('SW registration failed:', err));
+  });
+}
+
+
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles.css';

@@ -2,6 +2,11 @@ import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 import * as poseDetection from '@tensorflow-models/pose-detection';
 
+// Cache configuration
+const MODEL_VERSION = '1.0';
+const CACHE_KEY = `movenet-thunder-${MODEL_VERSION}`;
+const MODEL_URL = 'https://tfhub.dev/google/tfjs-model/movenet/singlepose/thunder/4';
+
 let detector: poseDetection.PoseDetector | null = null;
 let initPromise: Promise<boolean> | null = null;
 let isInitialized = false;
@@ -46,6 +51,19 @@ const setWebGLBackend = async (): Promise<boolean> => {
   }
 };
 
+async function ensureModelCached(): Promise<void> {
+  const modelUrlInCache = `indexeddb://${CACHE_KEY}`;
+  const modelInfo = await tf.io.listModels();
+
+  if (!modelInfo[modelUrlInCache]) {
+    console.log('Downloading and caching model...');
+    const model = await tf.loadGraphModel(MODEL_URL, { fromTFHub: true });
+    await model.save(modelUrlInCache);
+    model.dispose();
+  }
+}
+
+
 export const initTensorFlow = (): Promise<boolean> => {
   // Return existing promise if already initializing
   if (initPromise) {
@@ -68,31 +86,35 @@ export const initTensorFlow = (): Promise<boolean> => {
       await tf.ready();
       console.log('TensorFlow.js backend ready');
       
-      // Log backend details for diagnostics
-      const backendDetails = {
-        name: tf.getBackend(),
-        memory: tf.memory()
-      };
-      console.log('Backend details:', backendDetails);
+      // Ensure model is cached
+      await ensureModelCached();
 
-      const modelType = poseDetection.movenet.modelType.SINGLEPOSE_THUNDER;
-      
-      // Create detector with timeout
-      const detectorPromise = poseDetection.createDetector(
-        poseDetection.SupportedModels.MoveNet,
-        {
-          modelType,
-          enableSmoothing: true,
-        }
-      );
-      
-      const timeoutPromise = new Promise<never>((_, reject) => {
-        setTimeout(() => reject(new Error('Model loading timed out after 30 seconds')), 30000);
-      });
-      
-      detector = await Promise.race([detectorPromise, timeoutPromise]) as poseDetection.PoseDetector;
-      
-      console.log('MoveNet model loaded successfully');
+      // Try to load from cache with fallback to download
+      let loadedFromCache = true;
+      const modelUrlInCache = `indexeddb://${CACHE_KEY}`;
+
+      try {
+        detector = await poseDetection.createDetector(
+          poseDetection.SupportedModels.MoveNet,
+          {
+            modelType: poseDetection.movenet.modelType.SINGLEPOSE_THUNDER,
+            modelUrl: modelUrlInCache,
+            enableSmoothing: true,
+          }
+        );
+      } catch (cacheError) {
+        console.warn('Cache load failed, downloading fresh model:', cacheError);
+        loadedFromCache = false;
+        detector = await poseDetection.createDetector(
+          poseDetection.SupportedModels.MoveNet,
+          {
+            modelType: poseDetection.movenet.modelType.SINGLEPOSE_THUNDER,
+            enableSmoothing: true,
+          }
+        );
+      }
+
+      console.log(`Model loaded successfully from ${loadedFromCache ? 'cache' : 'network'}`);
       isInitialized = true;
       return true;
     } catch (err) {

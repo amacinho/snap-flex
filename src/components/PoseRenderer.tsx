@@ -78,19 +78,10 @@ export const PoseRenderer: React.FC<PoseRendererProps> = ({
         // kneeMetrics.kneePoints.nose
       ];
 
-      keypointList.forEach((point, index) => {
-        if (!point) return;
-
-        const circle = new Path2D();
-        circle.arc(point.x, point.y, 10, 0, 2 * Math.PI);
-        ctx.fillStyle = '#00FF00';
-        ctx.strokeStyle = '#FFFFFF';
-        ctx.fill(circle);
-        ctx.stroke(circle);
-      });
+      
       ctx.beginPath();
-      ctx.strokeStyle = '#00FF00';
-      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#FF0000';
+      ctx.lineWidth = 2;
 
 
       if (hipPoint && kneePoint) {
@@ -102,6 +93,17 @@ export const PoseRenderer: React.FC<PoseRendererProps> = ({
         ctx.lineTo(anklePoint.x, anklePoint.y);
       }
       ctx.stroke();
+
+      keypointList.forEach((point, index) => {
+        if (!point) return;
+
+        const circle = new Path2D();
+        circle.arc(point.x, point.y, 4, 0, 2 * Math.PI);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.fill(circle);
+        ctx.stroke(circle);
+      });
     },
     [kneeMetrics, videoRef, isFrontFacing]
   );
