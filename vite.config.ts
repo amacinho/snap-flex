@@ -18,13 +18,23 @@ export default defineConfig({
       cert: fs.readFileSync(path.join(certPath, 'cert.pem')),
     } : undefined,
     host: '0.0.0.0',
+    fs: {
+      strict: false,
+      allow: ['..', '/snap-flex', '/dev-dist']
+    }
   },
   plugins: [
     react(),
     VitePWA({
+      srcDir: 'public',
+      filename: 'sw.js',
       registerType: 'autoUpdate',
       workbox: {
-        cacheId: 'snap-flex-v1.01',
+        cacheId: 'snap-flex-v1.02',
+      },
+      devOptions: {
+        enabled: true,
+        type: 'module',
       },
       manifest: {
         name: 'Snap-Flex',
@@ -33,8 +43,22 @@ export default defineConfig({
         scope: '/snap-flex/',
         description: 'Knee Flexion Angle Measurement',
         theme_color: '#1a1a1a',
-        background_color: '#1a1a1a'
+        background_color: '#1a1a1a',
+        display: 'standalone',
+        orientation: 'portrait',
+        icons: [
+          {
+            src: '/snap-flex/android-chrome-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: '/snap-flex/android-chrome-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          }
+        ]
       }
     })
-  ]
+  ],
 });

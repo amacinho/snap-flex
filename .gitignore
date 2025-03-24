@@ -11,3 +11,6 @@ dist/
 *.tmp.*
 *.tmp~
 *.tmp!
+dev-dist/workbox-28d7c21f.js
+dev-dist/registerSW.js
+dev-dist/sw.js
