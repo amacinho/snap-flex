@@ -1,1 +1,8 @@
-if(!self.define){let e,i={};const s=(s,n)=>(s=new URL(s+".js",n).href,i[s]||new Promise((i=>{if("document"in self){const e=document.createElement("script");e.src=s,e.onload=i,document.head.appendChild(e)}else e=s,importScripts(s),i()})).then((()=>{let e=i[s];if(!e)throw new Error(`Module ${s} didn’t register its module`);return e})));self.define=(n,r)=>{const t=e||("document"in self?document.currentScript.src:"")||location.href;if(i[t])return;let o={};const f=e=>s(e,t),l={module:{uri:t},exports:o,require:f};i[t]=Promise.all(n.map((e=>l[e]||f(e)))).then((e=>(r(...e),o)))}}define(["./workbox-e8110d74"],(function(e){"use strict";e.setCacheNameDetails({prefix:"snap-flex-v1.02"}),self.skipWaiting(),e.clientsClaim(),e.precacheAndRoute([{url:"assets/index-CXVH2EIQ.css",revision:null},{url:"index.html",revision:"3db667095b203b5bd5c99fa47a120d0c"},{url:"registerSW.js",revision:"304e612d3eee7ca7f7d6111cf9fb183f"},{url:"manifest.webmanifest",revision:"4740931d3aa1ff5fb4b5940890fbb678"}],{}),e.cleanupOutdatedCaches(),e.registerRoute(new e.NavigationRoute(e.createHandlerBoundToURL("index.html")))}));
+console.log('SW: sw.js started');
+// Minimal offline-first service worker
+self.addEventListener('fetch', (event) => {
+  console.log('SW: fetch');
+  event.respondWith(
+    fetch(event.request).catch(() => caches.match(event.request))
+  );
+});
