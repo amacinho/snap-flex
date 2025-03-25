@@ -5,17 +5,24 @@ import fs from 'fs';
 import path from 'path';
 
 const certPath = path.resolve(__dirname, './certificates');
-const cert = fs.readFileSync(path.join(certPath, 'cert.pem'));
-const key = fs.readFileSync(path.join(certPath, 'key.pem'));
-
+let selfCertified = false;
+let cert;
+let key;
+try {
+  cert = fs.readFileSync(path.join(certPath, 'cert.pem'));
+  key = fs.readFileSync(path.join(certPath, 'key.pem'));
+  selfCertified = true;
+} catch (error) {
+  console.log('No cert.pem and key.pem found. Skipping self-signed certificate.');
+}
 
 export default defineConfig({
   base: '/snap-flex/', 
   server: {
-    https: {
-      cert,
-      key
-    },
+    https: selfCertified ?  {
+      key,
+      cert
+    } : undefined,
     host: '0.0.0.0'
   },
   plugins: [react()],
