@@ -2,6 +2,7 @@
 
 A knee flexion angle measurement application that uses TensorFlow.js and MoveNet for pose detection. All computations are done client-side in the browser. No data is sent to a server.
 
+Go to [amacinho.github.io/snap-flex](https://amacinho.github.io/snap-flex) to try the app.
 
 The knee flexion angle is the angle formed between an imaginary straight line extending from your thigh bone (femur) and your shin bone (tibia) when you bend your knee. A fully straight (extended) knee has a flexion angle of 0 degrees and most people can comfortably bend their knee to about 135 to 140 degrees.
 
